@@ -5,7 +5,7 @@ import type { Theme, Status } from "@inquirer/core"
 import type { PartialDeep } from "@inquirer/type"
 
 type GitHubTokenConfig = {
-  message: string
+  token: string
   validate?: (value: string) => boolean | string | Promise<string | boolean>
   theme?: PartialDeep<Theme>
 }
@@ -53,7 +53,7 @@ const input = createPrompt<string, GitHubTokenConfig>((config, done) => {
     error = theme.style.error(errorMsg)
   }
 
-  return [[prefix, theme.style.message(config.message, status), formattedValue].join(" "), error]
+  return [[prefix, theme.style.message(config.token, status), formattedValue].join(" "), error]
 })
 
 const unstar = async (octokit: Octokit, repo: any) => {
@@ -81,7 +81,7 @@ const unstar = async (octokit: Octokit, repo: any) => {
 }
 
 input({
-  message: "Personal access tokens (classic): ",
+  token: "Personal access tokens (classic): ",
 })
   .then(async (token: string) => {
     // Octokit.js
